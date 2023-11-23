@@ -1,7 +1,7 @@
 package me.stef.bluemooncity.mapper;
 
 import me.stef.bluemooncity.entity.User;
-import me.stef.bluemooncity.service.model.UserDTO;
+import me.stef.bluemooncity.service.rest.model.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,5 +12,5 @@ public interface MyMapper {
 
     UserDTO toUserDTO(User in);
 
-    User toUser(String username, String password);
+    User toUser(String username, String email, String password);
 }

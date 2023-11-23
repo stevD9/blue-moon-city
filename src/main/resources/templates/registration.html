@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <title>REGISTAR</title>
+    <!--    <link rel="stylesheet" href="style.css">-->
+</head>
+<body>
+<form method="POST" enctype="utf8">
+    <label for="un">username: </label>
+    <input id="un"  name="username" value="" />
+    <span id="usernameError" style="display:none"></span><br>
+
+    <label for="email">email: </label>
+    <input id="email" name="email" value="" />
+    <span id="emailError" style="display:none"></span><br>
+
+    <label for="pw">password: </label>
+    <input id="pw" name="password" value="" type="password" />
+    <span id="passwordError" style="display:none"></span><br>
+
+    <label for="mpw">pass again: </label>
+    <input id="mpw" name="matchingPassword" value="" type="password" />
+    <span id="globalError" style="display:none"></span><br>
+
+    <button type="submit">submit</button>
+    <form/>
+
+    <script type="text/javascript" th:src="@{/resources/register.js}"></script>
+</body>
+</html>

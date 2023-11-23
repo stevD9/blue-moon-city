@@ -1,9 +1,10 @@
-package me.stef.bluemooncity.service.model;
+package me.stef.bluemooncity.service.rest.model;
 
 public class UserDTO {
 
     private Integer id;
     private String username;
+    private String email;
 
     public Integer getId() {
         return id;
@@ -19,5 +20,13 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

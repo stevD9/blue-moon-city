@@ -1,6 +1,5 @@
 package me.stef.bluemooncity.security;
 
-import me.stef.bluemooncity.entity.User;
 import me.stef.bluemooncity.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +12,9 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return new MyUserPrincipal(user);
+    public UserDetails loadUserByUsername(String email) {
+        return userRepository.findByEmail(email)
+                .map(MyUserPrincipal::new)
+                .orElseThrow(() -> new UsernameNotFoundException(email));
     }
 }
