@@ -1,0 +1,10 @@
+<html>
+<body>
+<h1>The Users</h1>
+<div th:each="u : ${users}">
+    <h4 th:text="ID + ' ' + ${u.id}"/>
+    <p th:text="Username + ' ' + ${u.username}"/>
+    <p th:text="Email + ' ' + ${u.email}"/>
+</div>
+</body>
+</html>

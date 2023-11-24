@@ -25,7 +25,7 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(() -> user.getRole().name());
+        return Collections.singleton(() -> "ROLE_" + user.getRole().name());
     }
 
     @Override
