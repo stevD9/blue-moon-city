@@ -1,19 +1,16 @@
-package me.stef.bluemooncity.events.registration;
+package me.stef.bluemooncity.events;
 
 import me.stef.bluemooncity.entity.User;
-import org.springframework.context.ApplicationEvent;
 
 import java.util.Locale;
 
-public class RegistrationCompleteEvent extends ApplicationEvent {
+public class RegistrationCompleteEvent extends UserEvent {
 
     private String appUrl;
     private Locale locale;
-    private User user;
 
     public RegistrationCompleteEvent(User user, String appUrl, Locale locale) {
         super(user);
-        this.user = user;
         this.appUrl = appUrl;
         this.locale = locale;
     }
@@ -32,13 +29,5 @@ public class RegistrationCompleteEvent extends ApplicationEvent {
 
     public void setLocale(Locale locale) {
         this.locale = locale;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
