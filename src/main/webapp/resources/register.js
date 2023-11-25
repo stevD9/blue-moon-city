@@ -30,6 +30,7 @@ function register(event){
     $(".alert").html("").hide();
     $(".error-list").html("");
     if ($("#pw").val() != $("#mpw").val()) {
+        $("#globalError").show().html("Passwords must match!!").css("color", "red");
     	return;
     }
      const $uname = $("#un").val();

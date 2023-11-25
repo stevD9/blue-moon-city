@@ -1,34 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <title>REGISTAR</title>
-    <!--    <link rel="stylesheet" href="style.css">-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<form method="POST" enctype="utf8">
-    <label for="un">username: </label>
-    <input id="un"  name="username" value="" />
-    <span id="usernameError" style="display:none"></span><br>
 
-    <label for="email">email: </label>
-    <input id="email" name="email" value="" />
-    <span id="emailError" style="display:none"></span><br>
+<div class="container text-center">
+    <h1 class="text-primary">Sign Up!</h1>
+    <form method="POST" enctype="utf8">
+        <div class="row">
+        <label for="un">username: </label>
+        <input id="un"  name="username" value="" />
+        <span id="usernameError" style="display:none"></span><br>
+        </div>
 
-    <label for="pw">password: </label>
-    <input id="pw" name="password" value="" type="password" />
-    <span id="passwordError" style="display:none"></span><br>
+        <div class="row">
+        <label for="email">email: </label>
+        <input id="email" name="email" value="" />
+        <span id="emailError" style="display:none"></span><br>
+        </div>
 
-    <label for="mpw">pass again: </label>
-    <input id="mpw" name="matchingPassword" value="" type="password" />
-    <span id="globalError" style="display:none"></span><br>
+        <div class="row">
+        <label for="pw">password: </label>
+        <input id="pw" name="password" value="" type="password" />
+        <span id="passwordError" style="display:none"></span><br>
+        </div>
 
-    <button type="submit">submit</button>
-    <form/>
+        <div class="row">
+        <label for="mpw">pass again: </label>
+        <input id="mpw" name="matchingPassword" value="" type="password" />
+        <span id="globalError" style="display:none"></span><br>
+        </div>
 
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type="text/javascript" th:src="@{/resources/register.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
