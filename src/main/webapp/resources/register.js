@@ -3,42 +3,36 @@ $(document).ready(function () {
 		register(event);
 	});
 
-//	$(":password").keyup(function(){
-//		if($("#password").val() != $("#matchPassword").val()){
-//	        $("#globalError").show().html(/*[[#{PasswordMatches.user}]]*/);
-//	    }else{
-//	    	$("#globalError").html("").hide();
-//	    }
-//	});
-//
-//	options = {
-//		    common: {minChar:8},
-//		    ui: {
-//		    	showVerdictsInsideProgressBar:true,
-//		    	showErrors:true,
-//		    	errorMessages:{
-//		    		  wordLength: /*[[#{error.wordLength}]]*/,
-//		    		  wordNotEmail: /*[[#{error.wordNotEmail}]]*/,
-//		    		  wordSequences: /*[[#{error.wordSequences}]]*/,
-//		    		  wordLowercase: /*[[#{error.wordLowercase}]]*/,
-//		    		  wordUppercase: /*[[#{error.wordUppercase}]]*/,
-//		    	          wordOneNumber: /*[[#{error.wordOneNumber}]]*/,
-//		    		  wordOneSpecialChar: /*[[#{error.wordOneSpecialChar}]]*/
-//		    		}
-//		    	}
-//		};
-//	 $('#password').pwstrength(options);
+    $mpw = $('#mpw');
+    $pw = $('#pw');
+
+    $pw.on('input', function() {
+        if ($mpw.val()) {
+            if ($mpw.val() != $(this).val()) {
+                 $("#globalError").show().html("Passwords must match!!").css("color", "red");
+               } else {
+                  $("#globalError").html("").hide();
+               }
+        }
+    });
+
+	$mpw.on('input', function() {
+	     if ($("#pw").val() != $(this).val()) {
+             $("#globalError").show().html("Passwords must match!!").css("color", "red");
+          } else {
+             $("#globalError").html("").hide();
+          }
+	});
 });
 
 function register(event){
 	event.preventDefault();
     $(".alert").html("").hide();
     $(".error-list").html("");
-    if ($("#password").val() != $("#matchPassword").val()){
-    	$("#globalError").show().html(/*[[#{PasswordMatches.user}]]*/);
+    if ($("#pw").val() != $("#mpw").val()) {
     	return;
     }
-        const $uname = $("#un").val();
+     const $uname = $("#un").val();
         const $pw = $("#pw").val();
         const $email = $("#email").val();
 

@@ -26,7 +26,7 @@ public class UserView {
     public String getMyProfile(
             Model model,
             @AuthenticationPrincipal UserDetails userDetails) {
-        model.addAttribute("user", mapper.toUserDTO(userManager.getByUsername(userDetails.getUsername())));
+        model.addAttribute("user", mapper.toUserDTO(userManager.getByEmail(userDetails.getUsername())));
         return "profile";
     }
 

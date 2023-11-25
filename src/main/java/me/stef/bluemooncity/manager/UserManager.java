@@ -43,8 +43,8 @@ public class UserManager extends MyAbstractOperations {
         return user;
     }
 
-    public User getByUsername(String username) {
-        return userRepository.findByUsername(username)
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new MyException(MyErrorCode.USER_NOT_FOUND));
     }
 
