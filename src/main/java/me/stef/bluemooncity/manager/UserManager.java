@@ -13,11 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 public class UserManager extends MyAbstractOperations {
@@ -36,7 +33,8 @@ public class UserManager extends MyAbstractOperations {
                 .ifPresentOrElse(u -> {
                         throw new MyException(MyErrorCode.USER_ALREADY_EXISTS);}, () -> {
                             user.setRole(UserRole.USER);
-                            setState(user);
+                            if (system.isEmailVerificationEnabled())
+                                user.createEmailToken(system.getEmailVerificationMinutes());
                             userRepository.save(user);
                         });
 
@@ -52,6 +50,11 @@ public class UserManager extends MyAbstractOperations {
         return userRepository.findAll();
     }
 
+    public User getOne(int id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new MyException(MyErrorCode.USER_NOT_FOUND));
+    }
+
     public User activateAccount(String otp) {
         User user = userRepository.findById(OtpUtils.userIdFromOtp(otp))
                 .orElseThrow(() -> new MyException(MyErrorCode.USER_NOT_FOUND));
@@ -59,21 +62,6 @@ public class UserManager extends MyAbstractOperations {
             activateAccount(user, otp);
 
         return user;
-    }
-
-    //////////
-    private void setState(User user) {
-        User.State state = new User.State();
-        if (system.isEmailVerificationEnabled()) {
-            User.State.Token token = new User.State.Token(
-                    UUID.randomUUID().toString(), new Date(Instant.now().plus(system.getEmailVerificationMinutes(), ChronoUnit.MINUTES).toEpochMilli()));
-
-            state.setEmailToken(token);
-        } else {
-            state.setEnabled(true);
-        }
-
-        user.setState(state);
     }
 
     private void activateAccount(User user, String otp) {

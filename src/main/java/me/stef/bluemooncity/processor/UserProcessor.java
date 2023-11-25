@@ -7,6 +7,7 @@ import me.stef.bluemooncity.events.RegistrationCompletedEvent;
 import me.stef.bluemooncity.manager.UserManager;
 import me.stef.bluemooncity.op.MyAbstractOperations;
 import me.stef.bluemooncity.service.rest.model.UserRegistrationDTO;
+import me.stef.bluemooncity.utils.OtpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,5 +32,13 @@ public class UserProcessor extends MyAbstractOperations {
         eventPublisher.publishEvent(new RegistrationActivatedEvent(user, system.getAppUrl(), system.getLocale()));
 
         return user;
+    }
+
+    @Transactional
+    public void reSendMailOtp(String otp) {
+        User user = userManager.getOne(OtpUtils.userIdFromOtp(otp));
+        user.createEmailToken(system.getEmailVerificationMinutes());
+
+        eventPublisher.publishEvent(new RegistrationCompletedEvent(user, system.getAppUrl(), system.getLocale()));
     }
 }

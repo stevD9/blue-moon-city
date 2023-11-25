@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 import me.stef.bluemooncity.model.UserRole;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -32,12 +35,18 @@ public class User {
 
     @Column(name = "state")
     @Convert(converter = StateConverter.class)
-    private State state;
+    private State state = new State();
+
+    //////////
+    public void createEmailToken(Integer expiry) {
+        state.setEnabled(false);
+        state.setEmailToken(new User.State.Token(UUID.randomUUID().toString(), new Date(Instant.now().plus(expiry, ChronoUnit.MINUTES).toEpochMilli())));
+    }
 
     /////////
     public static class State {
         @JsonProperty("e")
-        private boolean enabled = false;
+        private boolean enabled = true;
         @JsonProperty("l")
         private boolean locked = false;
         @JsonProperty("pt")

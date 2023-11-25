@@ -1,5 +1,7 @@
 package me.stef.bluemooncity.service.view;
 
+import me.stef.bluemooncity.MyErrorCode;
+import me.stef.bluemooncity.exception.MyException;
 import me.stef.bluemooncity.manager.UserManager;
 import me.stef.bluemooncity.mapper.MyMapper;
 import me.stef.bluemooncity.processor.UserProcessor;
@@ -32,7 +34,15 @@ public class UserView {
 
     @GetMapping("/registration/complete")
     public String registrationComplete(@RequestParam String token) {
-        userProcessor.activateAccount(token);
+        try {
+            userProcessor.activateAccount(token);
+        } catch (MyException e) {
+            if (e.getCode() == MyErrorCode.EXPIRED_EMAIL_TOKEN.getCode()) {
+                userProcessor.reSendMailOtp(token);
+                return "reactivate";
+            }
+            else throw e;
+        }
         return "registrationActive";
     }
 }
