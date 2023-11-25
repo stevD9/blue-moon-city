@@ -12,6 +12,7 @@ public class MyErrorCode {
 
     public static final MyErrorCode USER_ALREADY_EXISTS = new MyErrorCode(10000, "Already exists");
     public static final MyErrorCode USER_NOT_FOUND = new MyErrorCode(10001, "Not found");
+    public static final MyErrorCode JSON_IO = new MyErrorCode(10002, "Json IO");
 
     public int getCode() {
         return code;

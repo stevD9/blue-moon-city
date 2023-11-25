@@ -9,6 +9,8 @@ import java.util.Collections;
 
 public class MyUserPrincipal implements UserDetails {
 
+    private static final String ROLE = "ROLE_";
+
     private User user;
 
     public MyUserPrincipal(User user) {
@@ -25,7 +27,7 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(() -> "ROLE_" + user.getRole().name());
+        return Collections.singleton(() -> ROLE + user.getRole().name());
     }
 
     @Override
@@ -45,7 +47,7 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // TODO ??
+        return !user.getState().getLocked();
     }
 
     @Override
@@ -55,6 +57,6 @@ public class MyUserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true; // TODO ??
+        return user.getState().getEnabled();
     }
 }

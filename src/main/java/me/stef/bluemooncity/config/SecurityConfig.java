@@ -53,28 +53,11 @@ public class SecurityConfig {
                         .requestMatchers("/resources/**").permitAll()
                         .requestMatchers("/", "/registration*", "/registration/success*").permitAll()
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                        .requestMatchers("/admin*").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .logout(LogoutConfigurer::permitAll)
                 .csrf(AbstractHttpConfigurer::disable);
-//                .antMatchers("/anonymous*")
-//                .anonymous()
-//                .antMatchers("/login*")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login.html")
-//                .loginProcessingUrl("/login")
-//                .failureUrl("/login.html?error=true")
-//                .and()
-//                .logout()
-//                .deleteCookies("JSESSIONID")
-//                .and()
-//                .rememberMe()
-//                .key("uniqueAndSecret");
         return http.build();
     }
 }

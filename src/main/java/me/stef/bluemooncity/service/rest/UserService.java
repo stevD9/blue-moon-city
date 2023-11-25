@@ -3,6 +3,7 @@ package me.stef.bluemooncity.service.rest;
 import jakarta.validation.Valid;
 import me.stef.bluemooncity.manager.UserManager;
 import me.stef.bluemooncity.mapper.MyMapper;
+import me.stef.bluemooncity.processor.UserProcessor;
 import me.stef.bluemooncity.service.rest.model.UserDTO;
 import me.stef.bluemooncity.service.rest.model.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,11 @@ public class UserService {
     MyMapper mapper = MyMapper.INSTANCE;
 
     @Autowired
-    private UserManager userManager;
+    private UserProcessor userProcessor;
 
     @PostMapping("/users")
     public UserDTO register(
             @RequestBody @Valid UserRegistrationDTO request) {
-        return mapper.toUserDTO(userManager.register(request));
+        return mapper.toUserDTO(userProcessor.register(request));
     }
 }

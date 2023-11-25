@@ -9,15 +9,23 @@ import me.stef.bluemooncity.model.UserRole;
 import me.stef.bluemooncity.repo.UserRepository;
 import me.stef.bluemooncity.service.rest.model.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Component
 public class UserManager {
 
     MyMapper mapper = MyMapper.INSTANCE;
+
+    @Value("${email.verification}")
+    private Integer emailVerificationExpiry;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -32,6 +40,12 @@ public class UserManager {
                 .ifPresentOrElse(u -> {
                         throw new MyException(MyErrorCode.USER_ALREADY_EXISTS);}, () -> {
                             user.setRole(UserRole.USER);
+                            User.State state = new User.State();
+                            User.State.Token token = new User.State.Token(
+                                    UUID.randomUUID().toString(), new Date(Instant.now().plus(emailVerificationExpiry, ChronoUnit.MINUTES).toEpochMilli()));
+
+                            state.setEmailToken(token);
+                            user.setState(state);
                             userRepository.save(user);
                         });
 
