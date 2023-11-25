@@ -27,11 +27,9 @@ public class UserProcessor extends MyAbstractOperations {
     }
 
     @Transactional
-    public User activateAccount(String otp) {
+    public void activateAccount(String otp) {
         User user = userManager.activateAccount(otp);
         eventPublisher.publishEvent(new RegistrationActivatedEvent(user, system.getAppUrl(), system.getLocale()));
-
-        return user;
     }
 
     @Transactional
