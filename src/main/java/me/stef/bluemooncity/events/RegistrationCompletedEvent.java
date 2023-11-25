@@ -4,12 +4,12 @@ import me.stef.bluemooncity.entity.User;
 
 import java.util.Locale;
 
-public class RegistrationCompleteEvent extends UserEvent {
+public class RegistrationCompletedEvent extends UserEvent {
 
     private String appUrl;
     private Locale locale;
 
-    public RegistrationCompleteEvent(User user, String appUrl, Locale locale) {
+    public RegistrationCompletedEvent(User user, String appUrl, Locale locale) {
         super(user);
         this.appUrl = appUrl;
         this.locale = locale;

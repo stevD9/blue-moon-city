@@ -34,7 +34,7 @@ function register(event){
 	event.preventDefault();
     $(".alert").html("").hide();
     $(".error-list").html("");
-    if($("#password").val() != $("#matchPassword").val()){
+    if ($("#password").val() != $("#matchPassword").val()){
     	$("#globalError").show().html(/*[[#{PasswordMatches.user}]]*/);
     	return;
     }

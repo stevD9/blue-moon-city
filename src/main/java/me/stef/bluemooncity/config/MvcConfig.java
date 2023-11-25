@@ -1,5 +1,6 @@
 package me.stef.bluemooncity.config;
 
+import me.stef.bluemooncity.properties.MySystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
@@ -16,11 +17,15 @@ public class MvcConfig implements WebMvcConfigurer {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private MySystem system;
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("/index.html");
         registry.addViewController("/registration").setViewName("/registration.html");
-        registry.addViewController("/registration/success").setViewName("/registrationSuccess.html");
+        String registrationComplete = system.isEmailVerificationEnabled() ? "/registrationSuccess.html" : "registrationActive.html";
+        registry.addViewController("/registration/success").setViewName(registrationComplete);
         registry.addViewController("/test-auth").setViewName("/testAuth.html");
         registry.addViewController("/admin").setViewName("/testAdmin.html");
     }
